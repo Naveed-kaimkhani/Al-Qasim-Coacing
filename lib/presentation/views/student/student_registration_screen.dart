@@ -1,625 +1,15 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_animate/flutter_animate.dart';
-// import 'package:flutter_hooks/flutter_hooks.dart';
-// import 'package:lottie/lottie.dart';
-// import 'package:google_fonts/google_fonts.dart';
-// import 'package:qr_code_scanner/components/animated_background.dart';
-// import 'package:qr_code_scanner/components/animated_button.dart';
-// import 'package:qr_code_scanner/components/animated_formField.dart';
 
-// class StudentRegistrationScreen extends HookWidget {
-//   const StudentRegistrationScreen({super.key});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     final formKey = useMemoized(() => GlobalKey<FormState>());
-//     final nameController = useTextEditingController();
-//     final fatherNameController = useTextEditingController();
-//     final rollNumberController = useTextEditingController();
-//     final passwordController = useTextEditingController();
-//     final selectedClass = useState<String?>(null);
-//     final showPassword = useState(false);
-//     final isSubmitting = useState(false);
-//     final animationController = useAnimationController(duration: 2.seconds);
 
-//     useEffect(() {
-//       animationController.forward();
-//       return null;
-//     }, []);
-
-//     final classes = [
-//       'Kindergarten',
-//       'Grade 1',
-//       'Grade 2',
-//       'Grade 3',
-//       'Grade 4',
-//       'Grade 5',
-//       'Grade 6',
-//       'Grade 7',
-//       'Grade 8',
-//       'Grade 9',
-//       'Grade 10',
-//       'Grade 11',
-//       'Grade 12'
-//     ];
-
-//     Future<void> submitForm() async {
-//       if (!formKey.currentState!.validate()) return;
-
-//       isSubmitting.value = true;
-//       await Future.delayed(2.seconds);
-//       isSubmitting.value = false;
-
-//       // Show success animation
-//       showDialog(
-//         context: context,
-//         builder: (context) => AlertDialog(
-//           backgroundColor: Colors.white.withOpacity(0.95),
-//           shape: RoundedRectangleBorder(
-//             borderRadius: BorderRadius.circular(20),
-//           ),
-//           content: Column(
-//             mainAxisSize: MainAxisSize.min,
-//             children: [
-//               Lottie.asset(
-//                 'assets/lottie/Success.json',
-//                 width: 150,
-//                 height: 150,
-//                 repeat: false,
-//               ),
-//               const SizedBox(height: 20),
-//               Text(
-//                 'Registration Successful!',
-//                 style: GoogleFonts.poppins(
-//                   fontSize: 22,
-//                   fontWeight: FontWeight.w700,
-//                   color: const Color(0xFF4CAF50),
-//                   letterSpacing: 0.5,
-//                 ),
-//               ),
-//               const SizedBox(height: 10),
-//               Text(
-//                 'Student has been registered successfully.',
-//                 style: GoogleFonts.inter(
-//                   fontSize: 14,
-//                   color: Colors.grey[700],
-//                 ),
-//               ),
-//             ],
-//           ),
-//           actions: [
-//             TextButton(
-//               onPressed: () => Navigator.pop(context),
-//               child: Text(
-//                 'OK',
-//                 style: GoogleFonts.inter(
-//                   fontWeight: FontWeight.w600,
-//                   color: const Color(0xFF1E88E5),
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       );
-//     }
-
-//     return Scaffold(
-//       body: Stack(
-//         children: [
-//           // Animated Background with Gradient and Shapes
-//           AnimatedBackground(),
-          
-//           // Main Content
-//           Center(
-//             child: SingleChildScrollView(
-//               child: Container(
-//                 constraints: const BoxConstraints(maxWidth: 1200),
-//                 padding: const EdgeInsets.all(40),
-//                 child: Row(
-//                   crossAxisAlignment: CrossAxisAlignment.center,
-//                   children: [
-//                     // Left Side - Illustration
-//                     Expanded(
-//                       child: Column(
-//                         mainAxisAlignment: MainAxisAlignment.center,
-//                         children: [
-//                           Container(
-//                             padding: const EdgeInsets.all(30),
-//                             decoration: BoxDecoration(
-//                               color: Colors.white.withOpacity(0.1),
-//                               borderRadius: BorderRadius.circular(30),
-//                               border: Border.all(
-//                                 color: Colors.white.withOpacity(0.2),
-//                               ),
-//                             ),
-//                             child: Stack(
-//                               alignment: Alignment.center,
-//                               children: [
-//                                 // Animated Book Illustration
-//                                 Positioned(
-//                                   right: 20,
-//                                   top: 20,
-//                                   child: Icon(
-//                                     Icons.menu_book_rounded,
-//                                     size: 80,
-//                                     color: Colors.white.withOpacity(0.3),
-//                                   ),
-//                                 ),
-//                                 Lottie.asset(
-//                                   'assets/lottie/education.json',
-//                                   width: 400,
-//                                   height: 400,
-//                                   controller: animationController,
-//                                   repeat: true,
-//                                   reverse: false,
-//                                   animate: true,
-//                                 ),
-//                               ],
-//                             ),
-//                           ).animate().fadeIn(duration: 800.ms),
-//                           const SizedBox(height: 40),
-//                           Text(
-//                             'Join Our Learning Community',
-//                             style: GoogleFonts.poppins(
-//                               fontSize: 36,
-//                               fontWeight: FontWeight.w700,
-//                               color: Colors.white,
-//                               letterSpacing: 0.5,
-//                               height: 1.2,
-//                             ),
-//                           ).animate().slideY(
-//                                 duration: 600.ms,
-//                                 begin: 0.5,
-//                                 curve: Curves.easeOut,
-//                               ),
-//                           const SizedBox(height: 10),
-//                           Text(
-//                             'Fill in the details to register as a new student',
-//                             style: GoogleFonts.inter(
-//                               fontSize: 16,
-//                               fontWeight: FontWeight.w400,
-//                               color: Colors.white.withOpacity(0.8),
-//                               letterSpacing: 0.3,
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-
-//                     const SizedBox(width: 60),
-
-//                     // Right Side - Registration Form
-//                     Expanded(
-//                       child: Container(
-//                         padding: const EdgeInsets.all(40),
-//                         decoration: BoxDecoration(
-//                           color: Colors.white.withOpacity(0.95),
-//                           borderRadius: BorderRadius.circular(30),
-//                           boxShadow: [
-//                             BoxShadow(
-//                               color: Colors.black.withOpacity(0.1),
-//                               blurRadius: 30,
-//                               spreadRadius: 5,
-//                               offset: const Offset(0, 10),
-//                             ),
-//                           ],
-//                         ),
-//                         child: Form(
-//                           key: formKey,
-//                           child: Column(
-//                             mainAxisSize: MainAxisSize.min,
-//                             crossAxisAlignment: CrossAxisAlignment.stretch,
-//                             children: [
-//                               // Header
-//                               Row(
-//                                 children: [
-//                                   Container(
-//                                     padding: const EdgeInsets.all(12),
-//                                     decoration: BoxDecoration(
-//                                       color: const Color(0xFF1E88E5),
-//                                       borderRadius: BorderRadius.circular(15),
-//                                       gradient: LinearGradient(
-//                                         begin: Alignment.topLeft,
-//                                         end: Alignment.bottomRight,
-//                                         colors: [
-//                                           const Color(0xFF1E88E5),
-//                                           const Color(0xFF4CAF50).withOpacity(0.8),
-//                                         ],
-//                                       ),
-//                                     ),
-//                                     child: const Icon(
-//                                       Icons.person_add_alt_1_rounded,
-//                                       color: Colors.white,
-//                                       size: 32,
-//                                     ),
-//                                   ),
-//                                   const SizedBox(width: 20),
-//                                   Expanded(
-//                                     child: Column(
-//                                       crossAxisAlignment: CrossAxisAlignment.start,
-//                                       children: [
-//                                         Text(
-//                                           'Student Registration',
-//                                           style: GoogleFonts.poppins(
-//                                             fontSize: 28,
-//                                             fontWeight: FontWeight.w700,
-//                                             color: const Color(0xFF1E88E5),
-//                                             letterSpacing: 0.5,
-//                                             height: 1.2,
-//                                           ),
-//                                         ),
-//                                         const SizedBox(height: 4),
-//                                         Text(
-//                                           'Enter student details below',
-//                                           style: GoogleFonts.inter(
-//                                             fontSize: 14,
-//                                             fontWeight: FontWeight.w500,
-//                                             color: Colors.grey[600],
-//                                             letterSpacing: 0.3,
-//                                           ),
-//                                         ),
-//                                       ],
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ).animate().fadeIn(delay: 300.ms),
-
-//                               const SizedBox(height: 40),
-
-//                               // Student Name
-//                               AnimatedFormField(
-//                                 delay: 400.ms,
-//                                 child: TextFormField(
-//                                   controller: nameController,
-//                                   style: GoogleFonts.inter(
-//                                     fontSize: 15,
-//                                     fontWeight: FontWeight.w500,
-//                                   ),
-//                                   decoration: InputDecoration(
-//                                     labelText: 'Student Name',
-//                                     labelStyle: GoogleFonts.inter(
-//                                       fontWeight: FontWeight.w500,
-//                                       color: Colors.grey[700],
-//                                     ),
-//                                     prefixIcon: const Icon(Icons.person_outline),
-//                                     border: OutlineInputBorder(
-//                                       borderRadius: BorderRadius.circular(12),
-//                                       borderSide: BorderSide(
-//                                         color: Colors.grey[300]!,
-//                                         width: 1.5,
-//                                       ),
-//                                     ),
-//                                     enabledBorder: OutlineInputBorder(
-//                                       borderRadius: BorderRadius.circular(12),
-//                                       borderSide: BorderSide(
-//                                         color: Colors.grey[300]!,
-//                                         width: 1.5,
-//                                       ),
-//                                     ),
-//                                     focusedBorder: OutlineInputBorder(
-//                                       borderRadius: BorderRadius.circular(12),
-//                                       borderSide: const BorderSide(
-//                                         color: Color(0xFF1E88E5),
-//                                         width: 2,
-//                                       ),
-//                                     ),
-//                                   ),
-//                                   validator: (value) {
-//                                     if (value == null || value.isEmpty) {
-//                                       return 'Please enter student name';
-//                                     }
-//                                     if (value.length < 2) {
-//                                       return 'Name must be at least 2 characters';
-//                                     }
-//                                     return null;
-//                                   },
-//                                 ),
-//                               ),
-
-//                               const SizedBox(height: 20),
-
-//                               // Father's Name
-//                               AnimatedFormField(
-//                                 delay: 500.ms,
-//                                 child: TextFormField(
-//                                   controller: fatherNameController,
-//                                   style: GoogleFonts.inter(
-//                                     fontSize: 15,
-//                                     fontWeight: FontWeight.w500,
-//                                   ),
-//                                   decoration: InputDecoration(
-//                                     labelText: 'Father\'s Name',
-//                                     labelStyle: GoogleFonts.inter(
-//                                       fontWeight: FontWeight.w500,
-//                                       color: Colors.grey[700],
-//                                     ),
-//                                     prefixIcon: const Icon(Icons.family_restroom),
-//                                     border: OutlineInputBorder(
-//                                       borderRadius: BorderRadius.circular(12),
-//                                       borderSide: BorderSide(
-//                                         color: Colors.grey[300]!,
-//                                         width: 1.5,
-//                                       ),
-//                                     ),
-//                                     enabledBorder: OutlineInputBorder(
-//                                       borderRadius: BorderRadius.circular(12),
-//                                       borderSide: BorderSide(
-//                                         color: Colors.grey[300]!,
-//                                         width: 1.5,
-//                                       ),
-//                                     ),
-//                                     focusedBorder: OutlineInputBorder(
-//                                       borderRadius: BorderRadius.circular(12),
-//                                       borderSide: const BorderSide(
-//                                         color: Color(0xFF1E88E5),
-//                                         width: 2,
-//                                       ),
-//                                     ),
-//                                   ),
-//                                   validator: (value) {
-//                                     if (value == null || value.isEmpty) {
-//                                       return 'Please enter father\'s name';
-//                                     }
-//                                     return null;
-//                                   },
-//                                 ),
-//                               ),
-
-//                               const SizedBox(height: 20),
-
-//                               // Class Dropdown
-//                               AnimatedFormField(
-//                                 delay: 600.ms,
-//                                 child: DropdownButtonFormField<String>(
-//                                   value: selectedClass.value,
-//                                   style: GoogleFonts.inter(
-//                                     fontSize: 15,
-//                                     fontWeight: FontWeight.w500,
-//                                     color: Colors.black87,
-//                                   ),
-//                                   decoration: InputDecoration(
-//                                     labelText: 'Class',
-//                                     labelStyle: GoogleFonts.inter(
-//                                       fontWeight: FontWeight.w500,
-//                                       color: Colors.grey[700],
-//                                     ),
-//                                     prefixIcon: const Icon(Icons.school_outlined),
-//                                     border: OutlineInputBorder(
-//                                       borderRadius: BorderRadius.circular(12),
-//                                       borderSide: BorderSide(
-//                                         color: Colors.grey[300]!,
-//                                         width: 1.5,
-//                                       ),
-//                                     ),
-//                                     enabledBorder: OutlineInputBorder(
-//                                       borderRadius: BorderRadius.circular(12),
-//                                       borderSide: BorderSide(
-//                                         color: Colors.grey[300]!,
-//                                         width: 1.5,
-//                                       ),
-//                                     ),
-//                                     focusedBorder: OutlineInputBorder(
-//                                       borderRadius: BorderRadius.circular(12),
-//                                       borderSide: const BorderSide(
-//                                         color: Color(0xFF1E88E5),
-//                                         width: 2,
-//                                       ),
-//                                     ),
-//                                   ),
-//                                   dropdownColor: Colors.white,
-//                                   items: classes.map((String value) {
-//                                     return DropdownMenuItem<String>(
-//                                       value: value,
-//                                       child: Text(
-//                                         value,
-//                                         style: GoogleFonts.inter(
-//                                           fontSize: 14,
-//                                           fontWeight: FontWeight.w500,
-//                                         ),
-//                                       ),
-//                                     );
-//                                   }).toList(),
-//                                   onChanged: (value) {
-//                                     selectedClass.value = value;
-//                                   },
-//                                   validator: (value) {
-//                                     if (value == null || value.isEmpty) {
-//                                       return 'Please select a class';
-//                                     }
-//                                     return null;
-//                                   },
-//                                 ),
-//                               ),
-
-//                               const SizedBox(height: 20),
-
-//                               // Roll Number
-//                               AnimatedFormField(
-//                                 delay: 700.ms,
-//                                 child: TextFormField(
-//                                   controller: rollNumberController,
-//                                   style: GoogleFonts.inter(
-//                                     fontSize: 15,
-//                                     fontWeight: FontWeight.w500,
-//                                   ),
-//                                   decoration: InputDecoration(
-//                                     labelText: 'Roll Number',
-//                                     labelStyle: GoogleFonts.inter(
-//                                       fontWeight: FontWeight.w500,
-//                                       color: Colors.grey[700],
-//                                     ),
-//                                     prefixIcon: const Icon(Icons.confirmation_number),
-//                                     border: OutlineInputBorder(
-//                                       borderRadius: BorderRadius.circular(12),
-//                                       borderSide: BorderSide(
-//                                         color: Colors.grey[300]!,
-//                                         width: 1.5,
-//                                       ),
-//                                     ),
-//                                     enabledBorder: OutlineInputBorder(
-//                                       borderRadius: BorderRadius.circular(12),
-//                                       borderSide: BorderSide(
-//                                         color: Colors.grey[300]!,
-//                                         width: 1.5,
-//                                       ),
-//                                     ),
-//                                     focusedBorder: OutlineInputBorder(
-//                                       borderRadius: BorderRadius.circular(12),
-//                                       borderSide: const BorderSide(
-//                                         color: Color(0xFF1E88E5),
-//                                         width: 2,
-//                                       ),
-//                                     ),
-//                                   ),
-//                                   validator: (value) {
-//                                     if (value == null || value.isEmpty) {
-//                                       return 'Please enter roll number';
-//                                     }
-//                                     if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
-//                                       return 'Roll number must be numeric';
-//                                     }
-//                                     return null;
-//                                   },
-//                                 ),
-//                               ),
-
-//                               const SizedBox(height: 20),
-
-//                               // Password Field
-//                               AnimatedFormField(
-//                                 delay: 800.ms,
-//                                 child: TextFormField(
-//                                   controller: passwordController,
-//                                   obscureText: !showPassword.value,
-//                                   style: GoogleFonts.inter(
-//                                     fontSize: 15,
-//                                     fontWeight: FontWeight.w500,
-//                                   ),
-//                                   decoration: InputDecoration(
-//                                     labelText: 'Password',
-//                                     labelStyle: GoogleFonts.inter(
-//                                       fontWeight: FontWeight.w500,
-//                                       color: Colors.grey[700],
-//                                     ),
-//                                     prefixIcon: const Icon(Icons.lock_outline),
-//                                     suffixIcon: IconButton(
-//                                       icon: Icon(
-//                                         showPassword.value
-//                                             ? Icons.visibility_off
-//                                             : Icons.visibility,
-//                                         color: const Color(0xFF1E88E5),
-//                                       ),
-//                                       onPressed: () {
-//                                         showPassword.value = !showPassword.value;
-//                                       },
-//                                     ),
-//                                     border: OutlineInputBorder(
-//                                       borderRadius: BorderRadius.circular(12),
-//                                       borderSide: BorderSide(
-//                                         color: Colors.grey[300]!,
-//                                         width: 1.5,
-//                                       ),
-//                                     ),
-//                                     enabledBorder: OutlineInputBorder(
-//                                       borderRadius: BorderRadius.circular(12),
-//                                       borderSide: BorderSide(
-//                                         color: Colors.grey[300]!,
-//                                         width: 1.5,
-//                                       ),
-//                                     ),
-//                                     focusedBorder: OutlineInputBorder(
-//                                       borderRadius: BorderRadius.circular(12),
-//                                       borderSide: const BorderSide(
-//                                         color: Color(0xFF1E88E5),
-//                                         width: 2,
-//                                       ),
-//                                     ),
-//                                   ),
-//                                   validator: (value) {
-//                                     if (value == null || value.isEmpty) {
-//                                       return 'Please enter password';
-//                                     }
-//                                     if (value.length < 6) {
-//                                       return 'Password must be at least 6 characters';
-//                                     }
-//                                     return null;
-//                                   },
-//                                 ),
-//                               ),
-
-//                               const SizedBox(height: 40),
-
-//                               // Register Button
-//                               AnimatedButton(
-//                                 delay: 900.ms,
-//                                 child: ElevatedButton(
-//                                   onPressed: isSubmitting.value ? null : submitForm,
-//                                   style: ElevatedButton.styleFrom(
-//                                     backgroundColor: const Color(0xFF1E88E5),
-//                                     foregroundColor: Colors.white,
-//                                     padding: const EdgeInsets.symmetric(
-//                                       vertical: 22,
-//                                       horizontal: 40,
-//                                     ),
-//                                     shape: RoundedRectangleBorder(
-//                                       borderRadius: BorderRadius.circular(15),
-//                                     ),
-//                                     elevation: 8,
-//                                     shadowColor: const Color(0xFF1E88E5)
-//                                         .withOpacity(0.4),
-//                                   ),
-//                                   child: isSubmitting.value
-//                                       ? SizedBox(
-//                                           width: 24,
-//                                           height: 24,
-//                                           child: CircularProgressIndicator(
-//                                             strokeWidth: 2.5,
-//                                             valueColor: AlwaysStoppedAnimation(
-//                                               Colors.white,
-//                                             ),
-//                                           ),
-//                                         )
-//                                       : Row(
-//                                           mainAxisAlignment:
-//                                               MainAxisAlignment.center,
-//                                           children: [
-//                                             const Icon(Icons.person_add_rounded),
-//                                             const SizedBox(width: 12),
-//                                             Text(
-//                                               'REGISTER STUDENT',
-//                                               style: GoogleFonts.poppins(
-//                                                 fontSize: 16,
-//                                                 fontWeight: FontWeight.w700,
-//                                                 letterSpacing: 0.8,
-//                                               ),
-//                                             ),
-//                                           ],
-//                                         ),
-//                                 ),
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ).animate().slideX(
-//                             duration: 800.ms,
-//                             begin: 1,
-//                             curve: Curves.easeOut,
-//                           ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:qr_code_scanner/presentation/views/student/studen_list.dart';
+import 'package:qr_code_scanner/presentation/views/student/student_details_screen.dart';
+import 'package:qr_code_scanner/presentation/views/student/student_list_panel.dart';
 
 
 class StudentRegistrationScreen extends StatefulWidget {
@@ -651,59 +41,60 @@ class _StudentRegistrationScreenState extends State<StudentRegistrationScreen> {
 
     setState(() => _isSubmitting = true);
     // Simulate network latency
-    await Future.delayed(2.seconds);
+    await Future.delayed(Durations.medium2);
     setState(() => _isSubmitting = false);
 
-    if (mounted) _showSuccessDialog();
+    // if (mounted) _showSuccessDialog();
+  Get.to(const StudentListScreen());
   }
 
-  void _showSuccessDialog() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => Center(
-        child: Container(
-          margin: const EdgeInsets.all(24),
-          padding: const EdgeInsets.all(40),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(32),
-            boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 40)],
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.check_circle_outline_rounded, color: Colors.green, size: 80)
-                  .animate().scale(duration: 400.ms, curve: Curves.easeInBack),
-              const SizedBox(height: 24),
-              Text(
-                'Registration Successful!',
-                style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.green),
-              ),
-              const SizedBox(height: 12),
-              Text(
-                'Student record has been created.',
-                style: GoogleFonts.inter(color: Colors.grey[600], fontSize: 16),
-              ),
-              const SizedBox(height: 32),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () => Navigator.pop(context),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF1E88E5),
-                    padding: const EdgeInsets.symmetric(vertical: 18),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                  ),
-                  child: const Text('CONTINUE', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-                ),
-              ),
-            ],
-          ),
-        ).animate().scale(begin: const Offset(0.8, 0.8), curve: Curves.easeOutCubic),
-      ),
-    );
-  }
+  // void _showSuccessDialog() {
+  //   showDialog(
+  //     context: context,
+  //     barrierDismissible: false,
+  //     builder: (context) => Center(
+  //       child: Container(
+  //         margin: const EdgeInsets.all(24),
+  //         padding: const EdgeInsets.all(40),
+  //         decoration: BoxDecoration(
+  //           color: Colors.white,
+  //           borderRadius: BorderRadius.circular(32),
+  //           boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 40)],
+  //         ),
+  //         child: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             const Icon(Icons.check_circle_outline_rounded, color: Colors.green, size: 80)
+  //                 .animate().scale(duration: 400.ms, curve: Curves.easeInBack),
+  //             const SizedBox(height: 24),
+  //             Text(
+  //               'Registration Successful!',
+  //               style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.green),
+  //             ),
+  //             const SizedBox(height: 12),
+  //             Text(
+  //               'Student record has been created.',
+  //               style: GoogleFonts.inter(color: Colors.grey[600], fontSize: 16),
+  //             ),
+  //             const SizedBox(height: 32),
+  //             SizedBox(
+  //               width: double.infinity,
+  //               child: ElevatedButton(
+  //                 onPressed: () => Navigator.pop(context),
+  //                 style: ElevatedButton.styleFrom(
+  //                   backgroundColor: const Color(0xFF1E88E5),
+  //                   padding: const EdgeInsets.symmetric(vertical: 18),
+  //                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+  //                 ),
+  //                 child: const Text('CONTINUE', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       ).animate().scale(begin: const Offset(0.8, 0.8), curve: Curves.easeOutCubic),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -738,7 +129,7 @@ class _StudentRegistrationScreenState extends State<StudentRegistrationScreen> {
                                 ),
                                 child: const Icon(Icons.person_add_rounded, size: 160, color: Colors.white70)
                                     .animate(onPlay: (c) => c.repeat())
-                                    .moveY(begin: -10, end: 10, duration: 2.seconds, curve: Curves.easeInOut),
+                                    .moveY(begin: -10, end: 10, duration: Duration(seconds: 2), curve: Curves.easeInOut),
                               ).animate().fadeIn(duration: 800.ms).scale(),
                               const SizedBox(height: 40),
                               Text(
@@ -952,17 +343,19 @@ class _RegisterButton extends StatelessWidget {
         boxShadow: [BoxShadow(color: const Color(0xFF1E88E5).withOpacity(0.3), blurRadius: 20, offset: const Offset(0, 10))],
       ),
       child: ElevatedButton(
+        
         onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF1E88E5),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         ),
+        
         child: isLoading
             ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 3))
             : Text('REGISTER STUDENT', style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white, letterSpacing: 1.2)),
       ),
     ).animate(onPlay: (c) => c.repeat(reverse: true))
-     .shimmer(delay: 3.seconds, duration: 1500.ms, color: Colors.white24);
+     .shimmer(delay: Duration(seconds: 1), duration: 1500.ms, color: Colors.white24);
   }
 }
 
@@ -1009,7 +402,7 @@ class _FloatingOrb extends StatelessWidget {
       height: size,
       decoration: BoxDecoration(shape: BoxShape.circle, color: color),
     ).animate(onPlay: (c) => c.repeat(reverse: true))
-     .moveX(begin: -30, end: 30, duration: 8.seconds, curve: Curves.easeInOut)
-     .moveY(begin: -20, end: 20, duration: 6.seconds, curve: Curves.easeInOut);
+     .moveX(begin: -30, end: 30, duration: NumDurationExtensions(8).seconds, curve: Curves.easeInOut)
+     .moveY(begin: -20, end: 20, duration: NumDurationExtensions(6).seconds, curve: Curves.easeInOut);
   }
 }

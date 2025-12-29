@@ -3,8 +3,13 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:qr_code_scanner/presentation/views/school_management_app.dart';
 import 'package:qr_code_scanner/presentation/views/student/studen_list.dart';
+import 'package:qr_code_scanner/presentation/views/student/student_details_screen.dart';
+import 'package:qr_code_scanner/presentation/views/student/attendance_management_screen.dart' ;
+import 'package:qr_code_scanner/presentation/views/student/student_registration_screen.dart';
 
 void main() => runApp(const StudentRegistrationApp());
 
@@ -13,7 +18,7 @@ class StudentRegistrationApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'EduManage Pro',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -49,10 +54,19 @@ class StudentRegistrationApp extends StatelessWidget {
     ),
   ),
 ),
-      home: const StudentListApp(),
+      // home:  StudentDetailsScreen(
+      //   student: Student(
+      //     id: '1',
+      //     name: 'John Doe',
+      //     className: '10th Grade',
+      //     rollNumber: '23',
+      //     absentDates: [],
+      //     fatherName: 'Mr. Doe',
+      //     accentColor: Color(0xFF1E88E5),
+      //   ),
+      // ),
+    home: StudentListScreen(),
     );
   }
 }
 
-
-// Custom Widgets for Animation and Styling
