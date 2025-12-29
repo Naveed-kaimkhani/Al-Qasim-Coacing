@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:qr_code_scanner/presentation/views/student/studen_list.dart';
-import 'package:qr_code_scanner/presentation/views/student/student_registration_screen.dart';
+import 'package:qr_code_scanner/presentation/views/admin_module/studen_list.dart';
+import 'package:qr_code_scanner/presentation/views/admin_module/admin_login_screen.dart';
 
 // Main App with Drawer
 class SchoolManagementApp extends StatefulWidget {
@@ -17,7 +17,7 @@ class _SchoolManagementAppState extends State<SchoolManagementApp> {
   
   // Screens for navigation
   final List<Widget> _screens = [
-    const StudentRegistrationScreen(),
+    const AdminLoginScreen(),
     const StudentListScreen(),
     Container(color: Colors.white, child: const Center(child: Text('Dashboard'))),
     Container(color: Colors.white, child: const Center(child: Text('Attendance'))),

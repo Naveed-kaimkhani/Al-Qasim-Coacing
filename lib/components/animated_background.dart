@@ -1,75 +1,60 @@
 
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'dart:math';
-class AnimatedBackground extends StatelessWidget {
-  final Random _random = Random();
 
-  AnimatedBackground({super.key});
+class AnimatedBackground extends StatelessWidget {
+  const AnimatedBackground();
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        // Main Gradient Background
-        Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                const Color(0xFF1E88E5),
-                const Color(0xFF4CAF50),
-                const Color(0xFFFFC107),
-              ],
-              stops: const [0.0, 0.5, 1.0],
-            ),
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFF1A237E), Color(0xFF3949AB), Color(0xFF1565C0)],
+        ),
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            top: -150,
+            left: -150,
+            child: _FloatingOrb(color: Colors.white.withOpacity(0.05), size: 500),
           ),
-        ),
-
-        // Animated Circles/Shapes
-        ...List.generate(15, (index) {
-          final size = 50 + _random.nextDouble() * 100;
-          return Positioned(
-            left: _random.nextDouble() * MediaQuery.of(context).size.width,
-            top: _random.nextDouble() * MediaQuery.of(context).size.height,
-            child: Container(
-              width: size,
-              height: size,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white.withOpacity(_random.nextDouble() * 0.1),
-              ),
-            ).animate(
-              delay: (index * 100).ms,
-            )
-            .fadeIn(duration: 2.seconds)
-            .scale(begin: Offset(0, 0), end: Offset(1, 1), curve: Curves.easeOut),
-          );
-        }),
-
-        // Educational Icons in Background
-        Positioned(
-          right: 100,
-          top: 100,
-          child: Icon(
-            Icons.school_rounded,
-            size: 120,
-            color: Colors.white.withOpacity(0.1),
-          ).animate().rotate(duration: 20.seconds),
-        ),
-        Positioned(
-          left: 100,
-          bottom: 100,
-          child: Icon(
-            Icons.library_books_rounded,
-            size: 150,
-            color: Colors.white.withOpacity(0.08),
+          Positioned(
+            bottom: -100,
+            right: -100,
+            child: _FloatingOrb(color: Colors.blue.withOpacity(0.1), size: 600),
           ),
-        ),
-      ],
+          Positioned(
+            top: 100,
+            right: 100,
+            child: _FloatingOrb(color: Colors.white.withOpacity(0.03), size: 300),
+          ),
+        ],
+      ),
     );
   }
 }
 
 
+
+class _FloatingOrb extends StatelessWidget {
+  final Color color;
+  final double size;
+  const _FloatingOrb({required this.color, required this.size});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+    ).animate(onPlay: (c) => c.repeat(reverse: true))
+     .moveX(begin: -30, end: 30, duration: NumDurationExtensions(8).seconds, curve: Curves.easeInOut)
+     .moveY(begin: -20, end: 20, duration: NumDurationExtensions(6).seconds, curve: Curves.easeInOut);
+  }
+}
